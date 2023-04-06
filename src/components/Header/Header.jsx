@@ -1,5 +1,5 @@
 import {AppBar, Toolbar, Typography, Box, Autocomplete, InputBase} from "@mui/material";
-//import SearchIcon from '@mui/icons-material'
+import {Search} from "@mui/icons-material";
 import useStyles from './styles.js'
 const Header = () => {
     const {classes} = useStyles();
@@ -16,7 +16,7 @@ const Header = () => {
                     {/*<Autocomplete>*/}
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
-                                {/*<SearchIcon/>*/}
+                                <Search/>
                             </div>
                             <InputBase placeholder={"Search..."} classes={{root:classes.inputRoot, input:classes.inputInput}}/>
                         </div>
