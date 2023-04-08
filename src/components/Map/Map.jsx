@@ -8,6 +8,7 @@ import useStyles from "./styles.js";
 const Map = ({setCoordinates,setBounds,coordinates, places}) => {
     const {classes} = useStyles();
     const isDeskyop = useMediaQuery('(min-width:600px)')
+    
     return (
         <div className={classes.mapContainer}>
             <GoogleMapReact

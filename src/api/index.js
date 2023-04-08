@@ -6,10 +6,10 @@ export const getPlaceData = async (sw, ne) => {
     try {
         const {data: {data}} = await axios.get(URL, {
             params: {
-                bl_latitude: '11.847676',////sw.lat
-                tr_latitude: '12.838442',/////ne.lat
-                bl_longitude: '109.095887',/////sw.lng
-                tr_longitude: '109.149359',////ne.lng
+                bl_latitude: sw.lat,////
+                tr_latitude: ne.lat,/////
+                bl_longitude: sw.lng,/////
+                tr_longitude: ne.lng,////
             },
             headers: {
                 'X-RapidAPI-Key': 'abe4b345c0msh444aac2b4217bbbp1f6e4cjsn195fc49f1b11',
