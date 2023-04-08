@@ -9,9 +9,14 @@ import {useEffect, useState} from "react";
 
 const App = () =>{
     const [places, setPlaces] = useState([]);
+    const [childClicked, setChildClicked] = useState(null)
 
     const [coordinates, setCoordinates] = useState({});
     const [bounds, setBounds] = useState({});
+
+    const [isLoading,setIsLoading] = useState(false)
+    const [type, setType] = useState('hotels');
+    const [rating, setRating] = useState('');
 
     useEffect(()=>{
         navigator.geolocation.getCurrentPosition(({coords:{latitude,longitude}})=>{
@@ -20,12 +25,18 @@ const App = () =>{
     },[])
 
     useEffect(()=>{
-        getPlaceData(bounds.sw,bounds.ne)//////////////////////////////////////////
+        const filteredPlaces = places.filter((place)=>place.rating>rating)
+    },[rating])
+
+    useEffect(()=>{
+        setIsLoading(true);
+        getPlaceData(type, bounds.sw,bounds.ne)
             .then((data)=>{
                 console.log(data);
                 setPlaces(data);
+                setIsLoading(false)
             })
-    },[coordinates,bounds])
+    },[type, coordinates,bounds])
 
     return (
         <div>
@@ -35,6 +46,12 @@ const App = () =>{
                 <Grid item xs={6} md={4}>
                     <List
                         places={places}
+                        childClicked={childClicked}
+                        isLoading={isLoading}
+                        type={type}
+                        setType={setType}
+                        rating={rating}
+                        setRating={setRating}
                     />
                 </Grid>
                 <Grid item xs={6} md={8}>
@@ -43,6 +60,7 @@ const App = () =>{
                         setBounds={setBounds}
                         coordinates={coordinates}
                         places={places}
+                        setChildClicked={setChildClicked}
                     />
                 </Grid>
             </Grid>

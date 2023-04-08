@@ -4,27 +4,28 @@ import {LocationOnOutlined} from "@mui/icons-material";
 import {Rating} from "@mui/material";
 
 import useStyles from "./styles.js";
+import {useState} from "react";
 
-const Map = ({setCoordinates,setBounds,coordinates, places}) => {
+const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) => {
     const {classes} = useStyles();
     const isDeskyop = useMediaQuery('(min-width:600px)')
-    
+
     return (
         <div className={classes.mapContainer}>
             <GoogleMapReact
-                bootstrapURLKeys={{key:"AIzaSyA-JEstw6gAaaBjychTDTqzkqka_b6-1DM"}}
+                bootstrapURLKeys={{key: "AIzaSyA-JEstw6gAaaBjychTDTqzkqka_b6-1DM"}}
                 defaultCenter={coordinates}
                 center={coordinates}
                 defaultZoom={14}
                 margin={[50, 50, 50, 50]}
                 options={''}
-                onChange={(e)=>{
+                onChange={(e) => {
                     setCoordinates({lat: e.center.lat, lng: e.center.lng})
                     setBounds({ne: e.marginBounds.ne, sw: e.marginBounds.sw})
                 }}
-                // onChildClick={''}
+                onChildClick={(child)=> setChildClicked(child)}
             >
-                {places?.map((place,i)=>(
+                {places?.map((place, i) => (
                     <div
                         className={classes.markerContainer}
                         lat={Number(place.latitude)}
@@ -34,15 +35,17 @@ const Map = ({setCoordinates,setBounds,coordinates, places}) => {
                         {
                             !isDeskyop ? (
                                 <LocationOnOutlined color={"primary"} fontSize={"large"}/>
-                            ):(
+                            ) : (
                                 <Paper elevation={3} className={classes.paper}>
-                                    <Typography className={classes.typography} variant={"subtitle2"} gutterBottom></Typography>
+                                    <Typography className={classes.typography} variant={"subtitle2"}
+                                                gutterBottom></Typography>
                                     {place.name}
                                     <img
                                         className={classes.pointer}
                                         src={place.photo ? place.photo.images.large.url : ''}
                                         alt={place.name}
                                     />
+                                    <Rating size={"small"} value={Number(place.rating)} readOnly/>
                                 </Paper>
                             )
                         }
