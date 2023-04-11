@@ -2,8 +2,9 @@ import {AppBar, Toolbar, Typography, Box, Autocomplete, InputBase} from "@mui/ma
 import SearchIcon from '@mui/icons-material/Search';
 import useStyles from './styles.js'
 import {styled, alpha} from '@mui/material/styles';
+import React, {useState} from "react";
 
-const Header = () => {
+const Header = ({setCoordinates}) => {
     const {classes} = useStyles();
     const SearchIconWrapper = styled('div')(({theme}) => ({
         padding: theme.spacing(0, 2),
@@ -44,7 +45,13 @@ const Header = () => {
             width: 'auto',
         },
     }));
-
+    const [autocomplete, setAutocomplete] = useState(null)
+    const onLoad = (autoC) => setAutocomplete(autoC);
+    const onPlaceChanged = () => {
+        const lat = autocomplete.getPlace().geometry.location.lat();
+        const lng = autocomplete.getPlace().geometry.location.lng();
+        setCoordinates({lat, lng});
+    }
     return (
         <AppBar position={"static"}>
             <Toolbar className={classes.toolbar}>
@@ -55,19 +62,19 @@ const Header = () => {
                     <Typography variant={"h6"} className={classes.title}>
                         Explore new places
                     </Typography>
-                    {/*<Autocomplete>*/}
-                    <Search >
-                        <SearchIconWrapper>
-                            <SearchIcon/>
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{'aria-label': 'search'}}
-                        />
-                    </Search>
+                    {/*<Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>*/}
+                        <Search>
+                            <SearchIconWrapper>
+                                <SearchIcon/>
+                            </SearchIconWrapper>
+                            <StyledInputBase
+                                placeholder="Search…"
+                                inputProps={{'aria-label': 'search'}}
+                            />
+                        </Search>
                     {/*</Autocomplete>*/}
-                </Box>
 
+                </Box>
             </Toolbar>
         </AppBar>
     )
