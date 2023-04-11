@@ -32,15 +32,16 @@ const App = () => {
     }, [rating])
 
     useEffect(() => {
-
-        setIsLoading(true);
-        getPlaceData(type, bounds.sw, bounds.ne)
-            .then((data) => {
-                setPlaces(data);
-                setFilteredPlaces([])
-                setIsLoading(false)
-            })
-    }, [type, coordinates, bounds])
+        if (bounds.sw && bounds.ne) {
+            setIsLoading(true);
+            getPlaceData(type, bounds.sw, bounds.ne)
+                .then((data) => {
+                    setPlaces(data?.filter((place)=>place.name && place.num_reviews > 0));
+                    setFilteredPlaces([])
+                    setIsLoading(false)
+                })
+        }
+    }, [type, coordinates, bounds])// quitar coorinate si funciona el autocomplete
 
     return (
         <>
@@ -49,7 +50,7 @@ const App = () => {
             <Grid container spacing={3} style={{width: '100%'}}>
                 <Grid item xs={6} md={4}>
                     <List
-                        places={filteredPlaces.length ? filteredPlaces :places}
+                        places={filteredPlaces.length ? filteredPlaces : places}
                         childClicked={childClicked}
                         isLoading={isLoading}
                         type={type}
