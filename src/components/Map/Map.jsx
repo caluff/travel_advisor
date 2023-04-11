@@ -4,7 +4,6 @@ import {LocationOnOutlined} from "@mui/icons-material";
 import {Rating} from "@mui/material";
 
 import useStyles from "./styles.js";
-import {useState} from "react";
 
 const Map = ({setCoordinates, setBounds, coordinates, places, setChildClicked}) => {
     const {classes} = useStyles();
