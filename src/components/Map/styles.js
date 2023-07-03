@@ -2,19 +2,19 @@ import {makeStyles} from "tss-react/mui";
 import {styled, alpha} from '@mui/material/styles';
 
 const useStyles = makeStyles()((theme) => {
-    return {
-        paper: {
-            padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100px',
-        },
-        mapContainer: {
-            height: '85vh', width: '100%',
-        },
-        markerContainer: {
-            position: 'absolute', transform: 'translate(-50%, -50%)', zIndex: 1, '&:hover': {zIndex: 2},
-        },
-        pointer: {
-            cursor: 'pointer',
-        },
-    }
+  return {
+    paper: {
+      padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100px',
+    },
+    mapContainer: {
+      height: '85vh', width: '100%',
+    },
+    markerContainer: {
+      position: 'absolute', transform: 'translate(-50%, -50%)', zIndex: 1, '&:hover': {zIndex: 2},
+    },
+    pointer: {
+      cursor: 'pointer',
+    },
+  }
 });
 export default useStyles;
