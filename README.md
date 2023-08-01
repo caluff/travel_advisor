@@ -1,4 +1,4 @@
-# Car Showcase
+# Travel Advisor
 
 ![Travel Advisor](./src/public/travel-advisor.png)
 
